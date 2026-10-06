@@ -1,0 +1,34 @@
+/* SHIFT selector — a neutral dark stage so the three brands can be the color. */
+[data-experience='selector'] {
+  --shift-surface: #0f0f0e;
+  --shift-surface-raised: #1c1c1a;
+  --shift-ink: #f3f0e8;
+  --shift-ink-muted: #a9a59b;
+  --shift-accent: #d7ff3f;
+  --shift-accent-ink: #0f0f0e;
+  --shift-line: #34342f;
+  --shift-line-strong: #68685e;
+  --shift-focus: #d7ff3f;
+
+  --shift-font-display: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
+  --shift-font-body: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
+
+  --shift-radius-control: 999px;
+  --shift-radius-card: 0.75rem;
+
+  --shift-space-gutter: 1rem;
+  --shift-space-section: 3rem;
+
+  --shift-ease: cubic-bezier(0.2, 0, 0, 1);
+  --shift-duration-fast: 160ms;
+  --shift-duration-base: 320ms;
+  --shift-duration-slow: 600ms;
+
+  color-scheme: dark;
+}
+
+@media (min-width: 64rem) {
+  [data-experience='selector'] {
+    --shift-space-gutter: 2.5rem;
+  }
+}

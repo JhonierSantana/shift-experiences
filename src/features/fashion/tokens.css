@@ -1,0 +1,36 @@
+/* MAISON VELA — quiet luxury: bone, ink, clay. Square corners, generous air, slow easing. */
+[data-experience='fashion'] {
+  --shift-surface: #f4f0e8;
+  --shift-surface-raised: #ebe4d8;
+  --shift-ink: #1a1714;
+  --shift-ink-muted: #5c534a;
+  --shift-accent: #9a4a2e;
+  --shift-accent-ink: #f4f0e8;
+  --shift-line: #cfc5b6;
+  --shift-line-strong: #948062;
+  --shift-focus: #1a1714;
+
+  --shift-font-display: 'Instrument Serif', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+  --shift-font-body: 'Instrument Sans', 'Helvetica Neue', Arial, sans-serif;
+
+  --shift-radius-control: 0;
+  --shift-radius-card: 0;
+
+  --shift-space-gutter: 1.25rem;
+  --shift-space-section: 5rem;
+
+  --shift-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --shift-duration-fast: 300ms;
+  --shift-duration-base: 600ms;
+  --shift-duration-slow: 900ms;
+
+  --shift-focus-offset: 4px;
+  color-scheme: light;
+}
+
+@media (min-width: 64rem) {
+  [data-experience='fashion'] {
+    --shift-space-gutter: 3rem;
+    --shift-space-section: 9rem;
+  }
+}

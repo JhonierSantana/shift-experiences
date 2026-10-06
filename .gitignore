@@ -1,0 +1,15 @@
+node_modules
+dist
+coverage
+*.local
+.DS_Store
+test-results
+playwright-report
+blob-report
+playwright/.cache
+
+# Claude Code local config and installed skills
+.claude/
+
+# Local notes: plans, audits, prompts and the practices checklist (not versioned)
+docs/

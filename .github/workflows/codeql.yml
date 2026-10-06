@@ -1,0 +1,51 @@
+name: CodeQL
+
+on:
+  push:
+    branches: [master, developer]
+  pull_request:
+    branches: [master, developer]
+  schedule:
+    # Escaneo semanal (martes 23:42 UTC) aunque no haya cambios: detecta reglas nuevas.
+    - cron: '42 23 * * 2'
+  workflow_dispatch:
+
+concurrency:
+  group: codeql-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      security-events: write # subir los resultados a la pestaña Security
+      contents: read # leer el código
+      actions: read # requerido en repos privados
+      packages: read # requerido en repos privados
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - language: javascript-typescript # tu app (src/)
+            build-mode: none
+          - language: actions # tus propios workflows de .github/
+            build-mode: none
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: ${{ matrix.build-mode }}
+          queries: security-extended
+
+      - name: Analyze
+        uses: github/codeql-action/analyze@v4
+        with:
+          category: '/language:${{ matrix.language }}'

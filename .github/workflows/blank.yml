@@ -1,0 +1,81 @@
+name: CI
+
+# Cuándo corre: en cada PR y en cada push a las ramas principales.
+# "workflow_dispatch" agrega un botón "Run workflow" en la pestaña Actions para correrlo a mano.
+on:
+  pull_request:
+    branches: [master, developer]
+  push:
+    branches: [master, developer]
+  workflow_dispatch:
+
+# Permisos mínimos: el pipeline solo puede leer el código.
+permissions:
+  contents: read
+
+# Si llega un commit nuevo a la misma rama, cancela la ejecución anterior.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: 22
+
+jobs:
+  # Job 1: las verificaciones de calidad. Nombre visible en la PR: "Quality".
+  quality:
+    name: Quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm test
+
+  # Job 2: el build de producción. Solo corre si "Quality" pasó. Nombre visible: "Build".
+  build:
+    name: Build
+    needs: quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      # Guarda el resultado del build 7 días para poder descargarlo y revisarlo.
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+          retention-days: 7
+          if-no-files-found: error

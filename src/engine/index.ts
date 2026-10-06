@@ -1,0 +1,11 @@
+// Public API of the Experience Engine. Experiences and app code import from '@/engine' only.
+export type * from './types'
+export { ExperienceProvider } from './ExperienceProvider'
+export { useExperience, useOptionalExperience } from './context'
+export { Slot, useSlot } from './slots'
+export { Capability, useCapability } from './capabilities'
+export { useDocumentScope } from './scope'
+export { useFonts } from './fonts'
+export { SwitchLink, useExperienceSwitch, MAIN_CONTENT_ID } from './switch'
+export { coveringRadius } from './transition'
+export { createExperienceDiscovery } from './routes'

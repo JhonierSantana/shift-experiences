@@ -1,0 +1,54 @@
+/* Selector doors: idle motion for the live brand previews. Reduced motion is capped globally in index.css. */
+@keyframes door-breathe {
+  0%,
+  100% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+.door-breathe {
+  animation: door-breathe 4.5s ease-in-out infinite;
+}
+
+@keyframes demo-fade {
+  from {
+    opacity: 0;
+    transform: translateY(0.35rem);
+  }
+}
+
+.demo-fade {
+  animation: demo-fade var(--shift-duration-base) var(--shift-ease) both;
+}
+
+/* Runs on the active brand's own motion tokens, so it feels different per business. */
+@keyframes demo-track {
+  from {
+    left: 0.25rem;
+  }
+  to {
+    left: calc(100% - 2rem);
+  }
+}
+
+.demo-track {
+  animation: demo-track calc(var(--shift-duration-slow) * 2) var(--shift-ease) infinite alternate;
+}
+
+@keyframes demo-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.demo-progress {
+  animation: demo-progress linear both;
+}

@@ -1,0 +1,60 @@
+/* Maison Vela component motion. Slow, weighted easing; reduced motion is capped globally in index.css. */
+@keyframes vela-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes vela-slide-right {
+  from {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes vela-slide-up {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes vela-rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+}
+
+.vela-modal-center[open] {
+  animation: vela-fade-in var(--shift-duration-base) var(--shift-ease);
+}
+
+.vela-modal-right[open] {
+  animation: vela-slide-right var(--shift-duration-base) var(--shift-ease);
+}
+
+.vela-modal-bottom[open] {
+  animation: vela-slide-up var(--shift-duration-base) var(--shift-ease);
+}
+
+dialog[open]::backdrop {
+  animation: vela-fade-in var(--shift-duration-base) var(--shift-ease);
+}
+
+.vela-rise {
+  animation: vela-rise var(--shift-duration-slow) var(--shift-ease) both;
+}
+
+/* Hide the native disclosure marker; the summary draws its own sign. */
+.vela-details > summary {
+  list-style: none;
+}
+.vela-details > summary::-webkit-details-marker {
+  display: none;
+}
+.vela-details > summary::after {
+  content: '+';
+  float: right;
+}
+.vela-details[open] > summary::after {
+  content: '\2212';
+}

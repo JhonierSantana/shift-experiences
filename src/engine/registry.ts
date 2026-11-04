@@ -12,23 +12,18 @@ interface RegistryEntry {
   readonly load: Loader
 }
 
-// Staged step 1: only the selector ships. Experience bundles arrive in later steps.
-function notReady(id: ExperienceId): Promise<ExperienceDefinition> {
-  return Promise.reject(new Error(`Experience "${id}" is not available yet`))
-}
-
 const entries: Readonly<Record<ExperienceId, RegistryEntry>> = {
   fashion: {
     manifest: fashionManifest,
-    load: () => notReady('fashion'),
+    load: () => import('@/features/fashion').then((m) => m.definition),
   },
   food: {
     manifest: foodManifest,
-    load: () => notReady('food'),
+    load: () => import('@/features/food').then((m) => m.definition),
   },
   market: {
     manifest: marketManifest,
-    load: () => notReady('market'),
+    load: () => import('@/features/market').then((m) => m.definition),
   },
 }
 

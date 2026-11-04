@@ -1,0 +1,56 @@
+/* Brasa & Co. motion: springy overshoot (--shift-ease). Reduced motion is capped globally in index.css. */
+@keyframes food-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes food-sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes food-sheet-right {
+  from {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes food-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.85) translateY(0.75rem);
+  }
+}
+
+@keyframes food-bump {
+  40% {
+    transform: scale(1.12);
+  }
+}
+
+.food-sheet[open] {
+  animation: food-sheet-up var(--shift-duration-base) var(--shift-ease);
+}
+
+@media (min-width: 48rem) {
+  .food-sheet[open] {
+    animation: food-pop var(--shift-duration-base) var(--shift-ease);
+  }
+  .food-sheet-drawer[open] {
+    animation: food-sheet-right var(--shift-duration-base) var(--shift-ease);
+  }
+}
+
+dialog[open]::backdrop {
+  animation: food-fade-in var(--shift-duration-base) ease-out;
+}
+
+.food-pop {
+  animation: food-pop var(--shift-duration-base) var(--shift-ease) both;
+}
+
+.food-bump {
+  animation: food-bump var(--shift-duration-slow) var(--shift-ease);
+}

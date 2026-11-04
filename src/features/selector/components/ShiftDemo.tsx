@@ -116,23 +116,25 @@ function ProductCard({ id }: { readonly id: ExperienceId }) {
 function Inspector({ active }: { readonly active: ExperienceId }) {
   const brand = SHOWCASE[active]
   const tile =
-    'grid min-w-0 content-between gap-3 rounded-xl border border-line bg-surface-raised p-3'
-  const label = 'text-[0.7rem] text-ink-muted'
+    'grid min-w-0 content-between gap-3 rounded-xl border border-line bg-surface p-2 sm:p-3'
+  const label = 'text-[0.6rem] text-ink-muted sm:text-[0.7rem]'
   return (
     <m.div variants={group} className="grid grid-cols-4 gap-2 sm:gap-3">
       <m.div variants={rise} className={tile}>
         <p className={label}>Forma</p>
         <div
           data-experience={active}
-          className="flex items-end gap-3 bg-transparent transition-all duration-1000 ease-brand"
+          className="flex flex-wrap items-end gap-2 bg-transparent transition-all duration-1000 ease-brand"
         >
-          <span className="block size-10 border-2 border-accent bg-surface rounded-card transition-[border-radius,border-color] duration-1000 ease-brand" />
-          <span className="block h-6 w-12 rounded-control bg-accent transition-[border-radius,background-color] duration-1000 ease-brand" />
+          <span className="block size-8 border-2 sm:size-10 border-accent bg-surface rounded-card transition-[border-radius,border-color] duration-1000 ease-brand" />
+          <span className="block h-5 w-8 rounded-control sm:h-6 sm:w-12 bg-accent transition-[border-radius,background-color] duration-1000 ease-brand" />
         </div>
         <Swap
           active={active}
           render={(id) => (
-            <p className="font-mono text-[0.65rem] leading-4 break-words">{SHOWCASE[id].radius}</p>
+            <p className="font-mono text-[0.65rem] leading-4 [overflow-wrap:anywhere]">
+              {SHOWCASE[id].radius}
+            </p>
           )}
         />
       </m.div>
@@ -154,7 +156,9 @@ function Inspector({ active }: { readonly active: ExperienceId }) {
         <Swap
           active={active}
           render={(id) => (
-            <p className="font-mono text-[0.65rem] leading-4 break-words">{SHOWCASE[id].font}</p>
+            <p className="font-mono text-[0.65rem] leading-4 [overflow-wrap:anywhere]">
+              {SHOWCASE[id].font}
+            </p>
           )}
         />
       </m.div>
@@ -173,7 +177,7 @@ function Inspector({ active }: { readonly active: ExperienceId }) {
         <Swap
           active={active}
           render={(id) => (
-            <p className="font-mono text-[0.65rem] leading-4 break-words">
+            <p className="font-mono text-[0.65rem] leading-4 [overflow-wrap:anywhere]">
               {SHOWCASE[id].palette[2]}
             </p>
           )}
@@ -188,7 +192,9 @@ function Inspector({ active }: { readonly active: ExperienceId }) {
         <Swap
           active={active}
           render={(id) => (
-            <p className="font-mono text-[0.65rem] leading-4 break-words">{SHOWCASE[id].motion}</p>
+            <p className="font-mono text-[0.65rem] leading-4 [overflow-wrap:anywhere]">
+              {SHOWCASE[id].motion}
+            </p>
           )}
         />
       </m.div>
@@ -212,7 +218,7 @@ export function ShiftDemo({ options, activeIndex, onSelect, running, cycleMs }: 
       whileInView="visible"
       viewport={{ once: true, amount: 0.12, margin: '0px 0px -18% 0px' }}
       aria-labelledby="shift-demo-title"
-      className={`relative grid gap-6 ${PANEL_RADIUS} p-5 lg:grid-cols-12 lg:gap-8 lg:p-6`}
+      className={`relative grid gap-6 ${PANEL_RADIUS} bg-surface-raised p-5 lg:grid-cols-12 lg:gap-8 lg:p-6`}
     >
       <svg
         aria-hidden="true"
@@ -228,7 +234,7 @@ export function ShiftDemo({ options, activeIndex, onSelect, running, cycleMs }: 
           pathLength={1}
           fill="none"
           strokeWidth="2"
-          className="stroke-line-strong"
+          className="stroke-(--shift-crimson)"
         />
       </svg>
       <div className="grid content-start gap-4 lg:col-span-5">

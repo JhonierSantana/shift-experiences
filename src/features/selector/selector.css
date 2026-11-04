@@ -52,3 +52,78 @@
 .demo-progress {
   animation: demo-progress linear both;
 }
+
+/*
+ * Door lighting. The light follows the cursor through --mx/--my (set by usePointerGlow) and takes
+ * the brand's color from --door-accent: the doors use the selector palette, and the brand shows
+ * up only in this light, the border and the name's typeface.
+ * Opacity is switched with utility classes (hover, focus, spotlight); only the paint lives here.
+ */
+.door-glow,
+.door-edge {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  transition: opacity var(--shift-duration-base) var(--shift-ease);
+}
+
+.door-glow {
+  background: radial-gradient(
+    380px circle at var(--mx, 50%) var(--my, 40%),
+    color-mix(in srgb, var(--door-accent, var(--shift-accent)) 16%, transparent),
+    transparent 65%
+  );
+}
+
+/* The same light, but only on the 2px border: a gradient masked down to a ring. */
+.door-edge {
+  inset: -2px;
+  padding: 2px;
+  background: radial-gradient(
+    300px circle at var(--mx, 50%) var(--my, 40%),
+    var(--door-accent, var(--shift-accent)),
+    transparent 70%
+  );
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+}
+
+/* A sheen that sweeps across a door photo once when the door is hovered or focused. */
+.door-glare {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.door-glare::before {
+  content: '';
+  position: absolute;
+  inset: -20% -60%;
+  background: linear-gradient(
+    105deg,
+    transparent 42%,
+    rgb(255 255 255 / 0.36) 50%,
+    transparent 58%
+  );
+  transform: translateX(-100%);
+  transition: transform 1100ms var(--shift-ease);
+}
+
+:is(.group:hover, .group:focus-visible) .door-glare::before {
+  transform: translateX(100%);
+}
+
+/* The stage: forest, with a faint crimson light coming in from the top-left corner. */
+.selector-stage {
+  background-image: radial-gradient(
+    55rem 34rem at 6% -8%,
+    color-mix(in srgb, var(--shift-crimson) 30%, transparent),
+    transparent 62%
+  );
+}

@@ -1,13 +1,16 @@
 import { useState } from 'react'
 import { LazyMotion, domAnimation, useReducedMotion } from 'motion/react'
 import { MAIN_CONTENT_ID, useDocumentScope, useExperienceSwitch, useFonts } from '@/engine'
-import { DoorCard, PauseToggle, SelectorHero, ShiftDemo } from '../components'
+import { DoorCard, SelectorHeader, ShiftDemo } from '../components'
 import { useSpotlight } from '../hooks'
 import { CYCLE_MS, SELECTOR_FONTS } from '../model'
 import '../selector.css'
 import '../tokens.css'
 
-/** Landing: each door is rendered inside its brand's token scope, as a live preview. */
+/**
+ * Landing. The three doors are the opening of the page: a one-line header names it, and the
+ * doors fill the first screen so choosing a business is the first thing you can do.
+ */
 export function SelectorPage() {
   useDocumentScope('selector')
   useFonts(SELECTOR_FONTS)
@@ -26,35 +29,26 @@ export function SelectorPage() {
 
   return (
     <LazyMotion features={domAnimation} strict>
-      <div className="flex min-h-dvh flex-col">
+      <div className="selector-stage flex min-h-dvh flex-col">
         <title>SHIFT · One application. Three businesses.</title>
-        <meta name="theme-color" content="#0f0f0e" />
+        <meta name="theme-color" content="#06110c" />
 
-        <header className="flex items-center justify-between px-gutter py-3">
-          <p className="font-display text-lg font-bold tracking-tight">SHIFT</p>
-          <div className="flex items-center gap-1">
-            <p className="text-sm text-ink-muted">Experience Engine · v0.1</p>
-            {reduced ? null : (
-              <PauseToggle
-                stopped={stopped}
-                onToggle={() => {
-                  setStopped((value) => !value)
-                }}
-              />
-            )}
-          </div>
-        </header>
+        <SelectorHeader
+          reduced={reduced}
+          stopped={stopped}
+          onToggleStopped={() => {
+            setStopped((value) => !value)
+          }}
+        />
 
         <main
           id={MAIN_CONTENT_ID}
           tabIndex={-1}
           className="flex flex-1 flex-col gap-6 px-gutter pb-gutter lg:gap-8"
         >
-          <SelectorHero experiences={experiences} litId={litExperience?.id} reduced={reduced} />
-
           <nav aria-label="Experiencias">
             <ul
-              className="grid gap-3 lg:flex lg:min-h-112"
+              className="grid gap-3 lg:flex lg:h-[calc(100dvh-5.5rem)] lg:min-h-[36rem] lg:max-h-[56rem]"
               onPointerEnter={() => {
                 setInteracting(true)
               }}
@@ -73,8 +67,12 @@ export function SelectorPage() {
                   key={experience.id}
                   experience={experience}
                   index={index}
-                  lit={!reduced && !interacting && litExperience?.id === experience.id}
+                  lit={(!reduced || interacting) && litExperience?.id === experience.id}
+                  dimmed={interacting && litExperience?.id !== experience.id}
                   reduced={reduced}
+                  onActivate={() => {
+                    setLit(index)
+                  }}
                 />
               ))}
             </ul>

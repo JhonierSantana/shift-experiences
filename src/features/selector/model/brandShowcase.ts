@@ -6,15 +6,18 @@ import type { showcaseMedia } from '@/infra/mock'
  * The palette, display font and motion values mirror each experience's `tokens.css` (the real
  * source of truth): `src/test/showcase-tokens.test.ts` fails if they drift apart.
  */
+export interface BrandFact {
+  readonly label: string
+  readonly value: string
+}
+
 export interface BrandShowcase {
-  /** One short word for the rotating lead ("Una app que se convierte en …"). */
-  readonly word: string
-  /** Tailwind classes that set the word in the brand's display face. */
-  readonly wordFont: string
-  /** Light variant of the brand accent, readable on the selector's dark stage. */
+  /** Tailwind classes that set the brand's name on its door (the one brand-owned type on a door). */
+  readonly nameFont: string
+  /** Light variant of the brand accent, readable on the selector's dark stage (borders, light). */
   readonly accent: string
-  /** One line shown when a door is hovered or focused. */
-  readonly highlight: string
+  /** Three short facts that make the business recognisable, shown as small cards on its door. */
+  readonly facts: readonly [BrandFact, BrandFact, BrandFact]
   readonly product: {
     readonly title: string
     readonly meta: string
@@ -34,10 +37,13 @@ export interface BrandShowcase {
 
 export const SHOWCASE: Readonly<Record<ExperienceId, BrandShowcase>> = {
   fashion: {
-    word: 'moda',
-    wordFont: "font-['Instrument_Serif'] italic",
+    nameFont: "font-['Instrument_Serif']",
     accent: '#d9a07a',
-    highlight: 'Tallas y colores, looks completos',
+    facts: [
+      { label: 'Tallas', value: 'XS–XL' },
+      { label: 'Colores', value: 'Por pieza' },
+      { label: 'Looks', value: 'Completos' },
+    ],
     product: {
       title: 'Abrigo de lana',
       meta: 'Tallas XS–XL · 3 colores',
@@ -54,10 +60,13 @@ export const SHOWCASE: Readonly<Record<ExperienceId, BrandShowcase>> = {
     movement: 'Cortina lenta y pesada, sin rebotes',
   },
   food: {
-    word: 'comida',
-    wordFont: "font-['Bricolage_Grotesque'] font-extrabold",
+    nameFont: "font-['Bricolage_Grotesque'] font-extrabold",
     accent: '#ff8a3d',
-    highlight: 'Menú por momento del día, pedido en minutos',
+    facts: [
+      { label: 'Menú', value: 'Por horario' },
+      { label: 'Pedido', value: 'Con extras' },
+      { label: 'Alérgenos', value: 'Visibles' },
+    ],
     product: {
       title: 'Costillas a la brasa',
       meta: 'Listo en 30 min · Para compartir',
@@ -74,10 +83,13 @@ export const SHOWCASE: Readonly<Record<ExperienceId, BrandShowcase>> = {
     movement: 'Rebote ágil que invita a pedir',
   },
   market: {
-    word: 'mercado',
-    wordFont: "font-['Archivo'] font-extrabold",
+    nameFont: "font-['Archivo'] font-extrabold",
     accent: '#7aa2ff',
-    highlight: 'Filtros, comparador y ofertas',
+    facts: [
+      { label: 'Búsqueda', value: 'Con filtros' },
+      { label: 'Compra', value: 'Comparador' },
+      { label: 'Precios', value: 'Ofertas' },
+    ],
     product: {
       title: 'Audífonos inalámbricos',
       meta: '4,6 ★ · Envío gratis',

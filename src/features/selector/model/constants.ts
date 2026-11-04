@@ -14,14 +14,3 @@ export const SELECTOR_FONTS = [
     href: 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400..700&family=Instrument+Serif:ital@0;1&family=Bricolage+Grotesque:wght@800&family=Archivo:wght@800&display=swap',
   },
 ]
-
-/** Each letter of SHIFT wears a different brand's display face. */
-export const WORDMARK = [
-  { letter: 'S', className: "font-['Instrument_Serif'] italic" },
-  { letter: 'H', className: "font-['Bricolage_Grotesque'] font-extrabold" },
-  { letter: 'I', className: "font-['Archivo'] font-extrabold" },
-  { letter: 'F', className: "font-['Instrument_Serif']" },
-  { letter: 'T', className: "font-['Bricolage_Grotesque'] font-extrabold" },
-] as const
-
-export const FACTS = ['Navegación propia', 'Datos propios', 'Carrito propio'] as const

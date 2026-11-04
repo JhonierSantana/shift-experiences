@@ -1,14 +1,27 @@
-/* SHIFT selector — a neutral dark stage so the three brands can be the color. */
+/*
+ * SHIFT selector. Palette "forest / charcoal / crimson", proportioned 60 / 30 / 10:
+ *   forest   #06110c  60%  the stage (page background)
+ *   charcoal #171717  30%  raised panels (the demo frame)
+ *   crimson  #a31c1b  10%  the accent: outline, glow, selection, small marks
+ *
+ * Crimson alone is only 2.5:1 on forest and 2.3:1 on charcoal, so it never carries text or
+ * focus. --shift-accent is a lighter crimson (6.9:1 on forest) for anything that must be read
+ * or found; the exact crimson (--shift-crimson) is for decoration and filled shapes.
+ * Previous palette, to revert: stage 0f0f0e, raised 1c1c1a, muted a9a59b, accent lime d7ff3f,
+ * line 34342f, line-strong 68685e.
+ */
 [data-experience='selector'] {
-  --shift-surface: #0f0f0e;
-  --shift-surface-raised: #1c1c1a;
+  --shift-crimson: #a31c1b;
+
+  --shift-surface: #06110c;
+  --shift-surface-raised: #171717;
   --shift-ink: #f3f0e8;
-  --shift-ink-muted: #a9a59b;
-  --shift-accent: #d7ff3f;
-  --shift-accent-ink: #0f0f0e;
-  --shift-line: #34342f;
-  --shift-line-strong: #68685e;
-  --shift-focus: #d7ff3f;
+  --shift-ink-muted: #a9aea9;
+  --shift-accent: #ff6b68;
+  --shift-accent-ink: #06110c;
+  --shift-line: #1f2a24;
+  --shift-line-strong: #66756c;
+  --shift-focus: #ff6b68;
 
   --shift-font-display: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
   --shift-font-body: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;

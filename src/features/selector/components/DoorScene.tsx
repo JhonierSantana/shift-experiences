@@ -36,8 +36,8 @@ function Photo({ media, className = '' }: PhotoProps) {
 }
 
 /**
- * Decorative live preview for each door. Painted with the brand's own tokens (the parent carries
- * `data-experience`), so the selector shows what each business looks like before entering it.
+ * Decorative preview for each door. It uses the selector palette, so the three doors read as one
+ * family; what makes each one recognisable is its photo, its name's typeface and its border color.
  */
 export function DoorScene({ id }: { readonly id: ExperienceId }) {
   switch (id) {
@@ -45,45 +45,47 @@ export function DoorScene({ id }: { readonly id: ExperienceId }) {
       return (
         <div
           aria-hidden="true"
-          className="relative h-full min-h-48 overflow-hidden bg-surface-raised"
+          className={`relative h-full min-h-48 overflow-hidden ${PANEL_INNER_RADIUS} bg-surface`}
         >
           <Photo
             media={showcaseMedia.fashionMain}
             className="inset-0 h-full w-full transition-transform duration-(--shift-duration-slow) ease-brand group-hover:scale-105 group-focus-visible:scale-105"
           />
-          <div className="absolute bottom-0 left-[6%] aspect-4/5 w-2/5 border-4 border-surface bg-accent transition-transform duration-(--shift-duration-slow) ease-brand group-hover:-translate-x-2 group-hover:translate-y-2 group-focus-visible:-translate-x-2 group-focus-visible:translate-y-2">
+          <div className="absolute bottom-0 left-[6%] aspect-4/5 w-2/5 border-4 border-surface-raised bg-surface transition-transform duration-(--shift-duration-slow) ease-brand group-hover:-translate-x-2 group-hover:translate-y-2 group-focus-visible:-translate-x-2 group-focus-visible:translate-y-2">
             <Photo media={showcaseMedia.fashionDetail} className="inset-0 h-full w-full" />
           </div>
+          <span aria-hidden="true" className="door-glare" />
         </div>
       )
     case 'food':
       return (
         <div
           aria-hidden="true"
-          className={`relative h-full min-h-48 overflow-hidden ${PANEL_INNER_RADIUS} bg-accent`}
+          className={`relative h-full min-h-48 overflow-hidden ${PANEL_INNER_RADIUS} bg-surface`}
         >
           <Photo
             media={showcaseMedia.food}
             className="inset-0 h-full w-full transition-transform duration-(--shift-duration-slow) ease-brand group-hover:scale-105 group-focus-visible:scale-105"
           />
-          <div className="door-breathe absolute -right-10 -bottom-14 size-48 rounded-full bg-[radial-gradient(circle,#ff9a3c99_0%,#e2531f55_45%,transparent_72%)]" />
+          <div className="door-breathe absolute -right-10 -bottom-14 size-48 rounded-full bg-[radial-gradient(circle,#a31c1bcc_0%,#a31c1b55_45%,transparent_72%)]" />
           <div className="absolute top-3 left-3 flex flex-wrap gap-2">
             {['A la brasa', 'Para compartir', 'Entrega en 30 min'].map((chip) => (
               <span
                 key={chip}
-                className="rounded-control border border-line-strong bg-surface px-3 py-1.5 text-sm"
+                className="rounded-control border border-line-strong bg-surface-raised/90 px-3 py-1.5 text-sm text-ink"
               >
                 {chip}
               </span>
             ))}
           </div>
+          <span aria-hidden="true" className="door-glare" />
         </div>
       )
     case 'market':
       return (
         <div
           aria-hidden="true"
-          className="relative h-full min-h-48 overflow-hidden rounded-card bg-surface-raised"
+          className={`relative h-full min-h-48 overflow-hidden ${PANEL_INNER_RADIUS} bg-surface`}
         >
           <Photo
             media={showcaseMedia.market}
@@ -98,7 +100,7 @@ export function DoorScene({ id }: { readonly id: ExperienceId }) {
               <span
                 key={price}
                 style={{ transitionDelay: `${String(index * 45)}ms` }}
-                className="flex items-center gap-2 rounded-card border border-line bg-surface px-2 py-1 font-mono text-xs tabular-nums transition-transform duration-(--shift-duration-base) ease-brand group-hover:-translate-y-1 group-focus-visible:-translate-y-1"
+                className="flex items-center gap-2 rounded-lg border border-line-strong bg-surface-raised/90 px-2 py-1 font-mono text-xs text-ink tabular-nums transition-transform duration-(--shift-duration-base) ease-brand group-hover:-translate-y-1 group-focus-visible:-translate-y-1"
               >
                 {price}
                 {discount ? (
@@ -109,6 +111,7 @@ export function DoorScene({ id }: { readonly id: ExperienceId }) {
               </span>
             ))}
           </div>
+          <span aria-hidden="true" className="door-glare" />
         </div>
       )
   }

@@ -16,6 +16,8 @@ export interface BrandShowcase {
   readonly nameFont: string
   /** Light variant of the brand accent, readable on the selector's dark stage (borders, light). */
   readonly accent: string
+  /** Two sentences that say what the business is, shown on its card's folder. */
+  readonly blurb: string
   /** Three short facts that make the business recognisable, shown as small cards on its door. */
   readonly facts: readonly [BrandFact, BrandFact, BrandFact]
   readonly product: {
@@ -37,6 +39,8 @@ export interface BrandShowcase {
 
 export const SHOWCASE: Readonly<Record<ExperienceId, BrandShowcase>> = {
   fashion: {
+    blurb:
+      'Una boutique de autor donde cada prenda tiene su talla y su color, y los looks se compran completos. Lenta, sobria y sin ruido.',
     nameFont: "font-['Instrument_Serif']",
     accent: '#d9a07a',
     facts: [
@@ -60,6 +64,8 @@ export const SHOWCASE: Readonly<Record<ExperienceId, BrandShowcase>> = {
     movement: 'Cortina lenta y pesada, sin rebotes',
   },
   food: {
+    blurb:
+      'Un restaurante a la brasa con menú por horario, extras a la medida y alérgenos a la vista. Pide en minutos, desde la mesa o la puerta.',
     nameFont: "font-['Bricolage_Grotesque'] font-extrabold",
     accent: '#ff8a3d',
     facts: [
@@ -83,6 +89,8 @@ export const SHOWCASE: Readonly<Record<ExperienceId, BrandShowcase>> = {
     movement: 'Rebote ágil que invita a pedir',
   },
   market: {
+    blurb:
+      'Un marketplace para comparar, filtrar y encontrar la mejor oferta. Especificaciones, reseñas y precios al instante.',
     nameFont: "font-['Archivo'] font-extrabold",
     accent: '#7aa2ff',
     facts: [

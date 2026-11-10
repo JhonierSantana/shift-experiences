@@ -2,16 +2,7 @@ import type { ReactNode } from 'react'
 import { m, useReducedMotion, type Variants } from 'motion/react'
 import type { ExperienceId } from '@/engine'
 import { showcaseMedia } from '@/infra/mock'
-import {
-  EASE,
-  EXPERIENCE_IDS,
-  PANEL_INNER_RADIUS,
-  PANEL_OUTLINE_RX,
-  PANEL_RADIUS,
-  SHOWCASE,
-  rise,
-  stagger,
-} from '../model'
+import { EASE, EXPERIENCE_IDS, SHOWCASE, rise, stagger } from '../model'
 
 interface DemoOption {
   readonly id: ExperienceId
@@ -80,7 +71,8 @@ function ProductCard({ id }: { readonly id: ExperienceId }) {
   return (
     <div
       data-experience={id}
-      className={`overflow-hidden ${PANEL_INNER_RADIUS} border border-white/15 bg-surface font-body text-ink`}
+      style={{ boxShadow: `10px 10px 0 ${brand.palette[2]}` }}
+      className="overflow-hidden rounded-card border-2 border-accent bg-surface font-body text-ink"
     >
       <m.div variants={unveil} className="relative h-28 overflow-hidden bg-surface-raised sm:h-32">
         <img
@@ -116,10 +108,13 @@ function ProductCard({ id }: { readonly id: ExperienceId }) {
 function Inspector({ active }: { readonly active: ExperienceId }) {
   const brand = SHOWCASE[active]
   const tile =
-    'grid min-w-0 content-between gap-3 rounded-xl border border-line bg-surface p-2 sm:p-3'
-  const label = 'text-[0.6rem] text-ink-muted sm:text-[0.7rem]'
+    'grid min-w-0 content-between gap-3 border-l border-current/25 pl-3 first:border-l-0 first:pl-0'
+  const label = 'text-[0.6rem] opacity-70 sm:text-[0.7rem]'
   return (
-    <m.div variants={group} className="grid grid-cols-4 gap-2 sm:gap-3">
+    <m.div
+      variants={group}
+      className="grid grid-cols-4 gap-2 border-t border-current/25 pt-4 sm:gap-3"
+    >
       <m.div variants={rise} className={tile}>
         <p className={label}>Forma</p>
         <div
@@ -165,11 +160,11 @@ function Inspector({ active }: { readonly active: ExperienceId }) {
 
       <m.div variants={rise} className={tile}>
         <p className={label}>Paleta</p>
-        <div className="flex flex-wrap gap-1">
+        <div className="flex -space-x-2">
           {brand.palette.map((color, index) => (
             <span
               key={index}
-              className="size-5 rounded-full border border-white/20 transition-colors duration-1000 ease-brand"
+              className="size-7 rounded-full border-2 border-current/30 transition-colors duration-1000 ease-brand"
               style={{ backgroundColor: color, transitionDelay: `${String(index * 60)}ms` }}
             />
           ))}
@@ -186,7 +181,7 @@ function Inspector({ active }: { readonly active: ExperienceId }) {
 
       <m.div variants={rise} className={tile}>
         <p className={label}>Movimiento</p>
-        <div data-experience={active} className="relative h-6 rounded-full bg-surface/10">
+        <div data-experience={active} className="relative h-6 rounded-full bg-current/10">
           <span className="demo-track absolute inset-y-1 left-1 w-4 rounded-full bg-accent" />
         </div>
         <Swap
@@ -218,8 +213,28 @@ export function ShiftDemo({ options, activeIndex, onSelect, running, cycleMs }: 
       whileInView="visible"
       viewport={{ once: true, amount: 0.12, margin: '0px 0px -18% 0px' }}
       aria-labelledby="shift-demo-title"
-      className={`relative grid gap-6 ${PANEL_RADIUS} bg-surface-raised p-5 lg:grid-cols-12 lg:gap-8 lg:p-6`}
+      style={{
+        backgroundColor: SHOWCASE[active.id].palette[0],
+        color: SHOWCASE[active.id].palette[1],
+      }}
+      className="relative grid gap-6 overflow-hidden rounded-[2.25rem] p-6 transition-colors duration-1000 ease-brand lg:grid-cols-12 lg:gap-10 lg:p-10"
     >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-6 -bottom-24 select-none lg:-bottom-40"
+      >
+        <Swap
+          active={active.id}
+          render={(id) => (
+            <p
+              data-experience={id}
+              className="font-display text-[16rem] leading-none opacity-[0.08] lg:text-[26rem]"
+            >
+              Aa
+            </p>
+          )}
+        />
+      </div>
       <svg
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 size-full overflow-visible"
@@ -230,14 +245,15 @@ export function ShiftDemo({ options, activeIndex, onSelect, running, cycleMs }: 
           y="1"
           width="calc(100% - 2px)"
           height="calc(100% - 2px)"
-          rx={PANEL_OUTLINE_RX}
+          rx={35}
           pathLength={1}
           fill="none"
           strokeWidth="2"
-          className="stroke-(--shift-crimson)"
+          style={{ stroke: SHOWCASE[active.id].palette[2] }}
+          className="transition-[stroke] duration-1000 ease-brand"
         />
       </svg>
-      <div className="grid content-start gap-4 lg:col-span-5">
+      <div className="relative grid content-start gap-4 lg:col-span-5">
         <m.h2
           variants={rise}
           id="shift-demo-title"
@@ -251,7 +267,7 @@ export function ShiftDemo({ options, activeIndex, onSelect, running, cycleMs }: 
             tres identidades.
           </em>
         </m.h2>
-        <m.p variants={rise} className="max-w-md text-sm leading-6 text-ink-muted">
+        <m.p variants={rise} className="max-w-md text-sm leading-6 opacity-75">
           Esta tarjeta nunca cambia de estructura. Cambian los tokens que la visten: forma,
           tipografía, color y movimiento. Así se construye cada negocio sobre el mismo núcleo.
         </m.p>
@@ -279,7 +295,7 @@ export function ShiftDemo({ options, activeIndex, onSelect, running, cycleMs }: 
                   : { borderColor: `${SHOWCASE[option.id].palette[2]}99` }
               }
               className={`relative flex min-h-11 items-center gap-2 overflow-hidden rounded-control border px-4 text-sm transition-[background-color,border-color,color] duration-700 ease-brand ${
-                index === activeIndex ? '' : 'text-ink-muted hover:text-ink'
+                index === activeIndex ? '' : 'opacity-80 hover:opacity-100'
               }`}
             >
               <span
@@ -309,7 +325,7 @@ export function ShiftDemo({ options, activeIndex, onSelect, running, cycleMs }: 
         </m.div>
 
         <m.dl variants={group} className="grid gap-3">
-          <m.div variants={line} className="h-px origin-left bg-line" />
+          <m.div variants={line} className="h-px origin-left bg-current/25" />
           {(
             [
               ['Navegación', 'navigation'],
@@ -318,7 +334,7 @@ export function ShiftDemo({ options, activeIndex, onSelect, running, cycleMs }: 
             ] as const
           ).map(([term, key]) => (
             <m.div key={term} variants={rise} className="grid gap-1">
-              <dt className="text-xs text-ink-muted">{term}</dt>
+              <dt className="text-xs opacity-65">{term}</dt>
               <dd>
                 <Swap active={active.id} render={(id) => <p>{SHOWCASE[id][key]}</p>} />
               </dd>
@@ -327,7 +343,7 @@ export function ShiftDemo({ options, activeIndex, onSelect, running, cycleMs }: 
         </m.dl>
       </div>
 
-      <div className="grid content-start gap-3 lg:col-span-7">
+      <div className="relative grid content-start gap-6 lg:col-span-7">
         <m.div variants={rise} aria-hidden="true">
           <Swap active={active.id} render={(id) => <ProductCard id={id} />} />
         </m.div>

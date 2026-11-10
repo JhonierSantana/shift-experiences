@@ -23,7 +23,14 @@ export function SelectorPage() {
   /** The user pressed "Pausar animación". */
   const [stopped, setStopped] = useState(false)
 
-  const cycling = !reduced && !interacting && !stopped
+  const [openId, setOpenId] = useState<string | null>(() =>
+    // Touch screens have no hover: open the first folder so people see that the cards open.
+    typeof window.matchMedia === 'function' && window.matchMedia('(hover: none)').matches
+      ? (experiences[0]?.id ?? null)
+      : null,
+  )
+
+  const cycling = !reduced && !interacting && !stopped && openId === null
   const [lit, setLit] = useSpotlight(count, cycling)
   const litExperience = experiences[lit]
 
@@ -48,7 +55,7 @@ export function SelectorPage() {
         >
           <nav aria-label="Experiencias">
             <ul
-              className="grid gap-3 lg:flex lg:h-[calc(100dvh-5.5rem)] lg:min-h-[36rem] lg:max-h-[56rem]"
+              className="grid gap-5 lg:grid-cols-3 lg:items-start"
               onPointerEnter={() => {
                 setInteracting(true)
               }}
@@ -70,12 +77,19 @@ export function SelectorPage() {
                   lit={(!reduced || interacting) && litExperience?.id === experience.id}
                   dimmed={interacting && litExperience?.id !== experience.id}
                   reduced={reduced}
+                  open={openId === experience.id}
+                  onToggle={() => {
+                    setOpenId((current) => (current === experience.id ? null : experience.id))
+                  }}
                   onActivate={() => {
                     setLit(index)
                   }}
                 />
               ))}
             </ul>
+            <p className="mt-4 hidden text-center text-sm text-ink-muted [@media(hover:hover)]:block">
+              Pasa el cursor sobre una carpeta para abrirla.
+            </p>
           </nav>
 
           <ShiftDemo

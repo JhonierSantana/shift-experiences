@@ -6,6 +6,7 @@ test.describe('Experience selector', () => {
 
     await expect(page.getByRole('heading', { name: 'SHIFT', level: 1 })).toBeVisible()
 
+    await page.getByRole('button', { name: /Brasa & Co\./ }).click()
     const cards = page.getByRole('link').filter({ hasText: 'Brasa & Co.' })
     await expect(cards).toHaveCount(1)
     await cards.click()

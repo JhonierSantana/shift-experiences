@@ -1,0 +1,69 @@
+@import 'tailwindcss';
+@import './design-system/tokens.css';
+
+/* Semantic tokens exposed as Tailwind utilities (bg-surface, text-ink, font-display, rounded-card, px-gutter, ease-brand...). */
+@theme inline {
+  --color-surface: var(--shift-surface);
+  --color-surface-raised: var(--shift-surface-raised);
+  --color-ink: var(--shift-ink);
+  --color-ink-muted: var(--shift-ink-muted);
+  --color-accent: var(--shift-accent);
+  --color-accent-ink: var(--shift-accent-ink);
+  --color-line: var(--shift-line);
+  --color-line-strong: var(--shift-line-strong);
+  --font-display: var(--shift-font-display);
+  --font-body: var(--shift-font-body);
+  --font-mono: var(--shift-font-mono);
+  --radius-control: var(--shift-radius-control);
+  --radius-card: var(--shift-radius-card);
+  --spacing-gutter: var(--shift-space-gutter);
+  --spacing-section: var(--shift-space-section);
+  --ease-brand: var(--shift-ease);
+}
+
+@layer base {
+  html {
+    background-color: var(--shift-surface);
+    color: var(--shift-ink);
+    font-family: var(--shift-font-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    min-height: 100dvh;
+  }
+
+  :focus-visible {
+    outline: var(--shift-focus-width) solid var(--shift-focus);
+    outline-offset: var(--shift-focus-offset);
+  }
+
+  /* Programmatic focus target after an experience switch; no ring for a non-interactive landmark. */
+  main:focus {
+    outline: none;
+  }
+
+  ::selection {
+    background-color: var(--shift-accent);
+    color: var(--shift-accent-ink);
+  }
+}
+
+/* The switch choreography is driven from JS (Web Animations on the pseudo-elements). */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

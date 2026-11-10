@@ -1,0 +1,62 @@
+/* Plaza component motion. Fast (<=250ms); reduced motion is capped globally in index.css. */
+@keyframes plaza-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes plaza-slide-right {
+  from {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes plaza-slide-left {
+  from {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes plaza-slide-up {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes plaza-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+}
+
+.plaza-modal-center[open] {
+  animation: plaza-fade-in var(--shift-duration-fast) var(--shift-ease);
+}
+
+.plaza-modal-right[open] {
+  animation: plaza-slide-right var(--shift-duration-base) var(--shift-ease);
+}
+
+.plaza-modal-left[open] {
+  animation: plaza-slide-left var(--shift-duration-base) var(--shift-ease);
+}
+
+.plaza-modal-bottom[open] {
+  animation: plaza-slide-up var(--shift-duration-base) var(--shift-ease);
+}
+
+dialog[open]::backdrop {
+  animation: plaza-fade-in var(--shift-duration-fast) var(--shift-ease);
+}
+
+.plaza-drop {
+  animation: plaza-drop var(--shift-duration-fast) var(--shift-ease);
+}
+
+.plaza-scroller {
+  scrollbar-width: none;
+}
+.plaza-scroller::-webkit-scrollbar {
+  display: none;
+}

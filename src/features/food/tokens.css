@@ -1,0 +1,42 @@
+/* BRASA & CO. — warm, appetizing, bouncy: ember red, cream, leaf green. Big radii, soft shadows. */
+[data-experience='food'] {
+  --shift-surface: #fff6e9;
+  --shift-surface-raised: #ffffff;
+  --shift-ink: #2a1510;
+  --shift-ink-muted: #6b4538;
+  --shift-accent: #c2311d;
+  --shift-accent-ink: #fff6e9;
+  --shift-line: #f0dcc4;
+  --shift-line-strong: #c48132;
+  --shift-focus: #2f6b3a;
+
+  --shift-font-display: 'Bricolage Grotesque', 'Arial Rounded MT Bold', 'Trebuchet MS', sans-serif;
+  --shift-font-body: 'DM Sans', 'Segoe UI', system-ui, sans-serif;
+
+  --shift-radius-control: 999px;
+  --shift-radius-card: 1.75rem;
+
+  --shift-space-gutter: 1rem;
+  --shift-space-section: 3rem;
+
+  --shift-ease: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --shift-duration-fast: 180ms;
+  --shift-duration-base: 320ms;
+  --shift-duration-slow: 520ms;
+
+  /* Brand extras (not part of the shared semantic contract). */
+  --food-leaf: #2f6b3a;
+  --food-butter: #ffd58a;
+  --food-ember-deep: #9e2413;
+  --food-cream-deep: #f7e6cf;
+  --food-shadow: 0 10px 30px -12px rgb(122 40 16 / 0.35);
+
+  color-scheme: light;
+}
+
+@media (min-width: 64rem) {
+  [data-experience='food'] {
+    --shift-space-gutter: 2rem;
+    --shift-space-section: 4.5rem;
+  }
+}

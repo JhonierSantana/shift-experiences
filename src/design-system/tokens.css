@@ -1,0 +1,42 @@
+/*
+ * Layer 1: global tokens (shared by every experience).
+ * Layer 2 defaults: semantic tokens. Each experience redefines the --shift-*
+ * semantic set in its own tokens.css under [data-experience='<id>'].
+ * Colors must be 6-digit hex: src/test/tokens-contrast.test.ts parses them.
+ * :where() keeps these defaults at zero specificity so [data-experience] always
+ * wins, regardless of stylesheet order (experience CSS may load before this file).
+ */
+:where(:root) {
+  --shift-focus-width: 3px;
+  --shift-focus-offset: 3px;
+  --shift-z-header: 30;
+  --shift-z-overlay: 50;
+
+  --shift-surface: #ffffff;
+  --shift-surface-raised: #f4f4f5;
+  --shift-ink: #18181b;
+  --shift-ink-muted: #52525b;
+  --shift-accent: #18181b;
+  --shift-accent-ink: #ffffff;
+  --shift-line: #d4d4d8;
+  /* Stronger border for a control's resting-state boundary (chip, stepper, field) — 3:1 min (SC 1.4.11). */
+  --shift-line-strong: #8c8c97;
+  --shift-focus: #18181b;
+
+  --shift-font-display: ui-sans-serif, system-ui, sans-serif;
+  --shift-font-body: ui-sans-serif, system-ui, sans-serif;
+  --shift-font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+
+  --shift-radius-control: 0.375rem;
+  --shift-radius-card: 0.5rem;
+
+  --shift-space-gutter: 1rem;
+  --shift-space-section: 3rem;
+
+  --shift-ease: cubic-bezier(0.2, 0, 0, 1);
+  --shift-duration-fast: 150ms;
+  --shift-duration-base: 250ms;
+  --shift-duration-slow: 400ms;
+
+  color-scheme: light;
+}
